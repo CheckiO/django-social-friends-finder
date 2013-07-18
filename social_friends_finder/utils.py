@@ -18,7 +18,7 @@ class SocialFriendsFinderBackendFactory():
             from social_friends_finder.backends.vkontakte_backend import VKontakteFriendsProvider
             friends_provider = VKontakteFriendsProvider()
         else:
-            raise NotImplementedError("provider: %s is not implemented")
+            raise NotImplementedError("provider: %s is not implemented" % backend_name)
 
         return friends_provider
 
