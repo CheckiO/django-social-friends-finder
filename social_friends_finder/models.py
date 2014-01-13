@@ -27,7 +27,10 @@ class SocialFriendsManager(models.Manager):
         """
 
         # Type check
-        self.assert_user_is_social_auth_user(social_auth_user)
+        try:
+            self.assert_user_is_social_auth_user(social_auth_user)
+        except TypeError:
+            return []
 
         # Get friend finder backend
         friends_provider = SocialFriendsFinderBackendFactory.get_backend(social_auth_user.provider)
@@ -46,7 +49,10 @@ class SocialFriendsManager(models.Manager):
             User collection
         """
         # Type check
-        self.assert_user_is_social_auth_user(user_social_auth)
+        try:
+            self.assert_user_is_social_auth_user(user_social_auth)
+        except TypeError:
+            return []
 
         if not friend_ids:
             friend_ids = self.fetch_social_friend_ids(user_social_auth)
@@ -57,7 +63,7 @@ class SocialFriendsManager(models.Manager):
 
         # Match them with the ones on the website
         if USING_ALLAUTH:
-            return User.objects.filter(socialaccount__uid__in=friend_ids).all()            
+            return User.objects.filter(socialaccount__uid__in=friend_ids).all()
         else:
             return User.objects.filter(social_auth__uid__in=friend_ids).all()
 
@@ -69,7 +75,10 @@ class SocialFriendsManager(models.Manager):
             NotImplemetedError
         """
         # Type check
-        self.assert_user_is_social_auth_user(social_auth)
+        try:
+            self.assert_user_is_social_auth_user(social_auth)
+        except TypeError:
+            return []
 
         # Fetch the record
         try:
