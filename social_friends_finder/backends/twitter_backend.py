@@ -46,7 +46,7 @@ class TwitterFriendsProvider(BaseFriendsProvider):
         cursor = -1
         friends = []
         while True:
-            data = tw.getFriendsList(cursor=cursor)
+            data = tw.get_friends_list(cursor=cursor)
             friends += data.get('users', [])
 
             next_cursor = data.get('next_cursor', 0)
@@ -69,7 +69,7 @@ class TwitterFriendsProvider(BaseFriendsProvider):
         cursor = -1
         friend_ids = []
         while True:
-            data = tw.getFriendsIDs(cursor=cursor)
+            data = tw.get_friends_ids(cursor=cursor)
             friend_ids += data.get('ids', [])
 
             next_cursor = data.get('next_cursor', 0)
